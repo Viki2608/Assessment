@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sitemap</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        ul ul {
+            margin-left: 20px;
+            border-left: 1px solid #ddd;
+            padding-left: 20px;
+        }
+        ul ul ul {
+            margin-left: 40px;
+            border-left: 1px solid #ddd;
+            padding-left: 20px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sitemap</h1>
+        <ul>
+            {% for key, value in sitemap.items() %}
+                <li>
+                    <a href="{{ key }}">{{ key }}</a>
+                    {% if value %}
+                        <ul>
+                            {% for subkey, subvalue in value.items() %}
+                                <li>
+                                    <a href="{{ subkey }}">{{ subkey }}</a>
+                                    {% if subvalue %}
+                                        <ul>
+                                            {% for subsubkey, subsubvalue in subvalue.items() %}
+                                                <li>
+                                                    <a href="{{ subsubkey }}">{{ subsubkey }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
