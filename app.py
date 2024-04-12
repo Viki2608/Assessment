@@ -28,7 +28,7 @@ def get_links(url):
         raise
 
 def clean_links(links, base_url):
-    logging.info(f"Cleaning External Links")
+    logging.info(f"Cleaning External Links : {links}")
     try:
         cleaned = [ link for link in links if re.search(f'^{base_url}', link)]
         if base_url in cleaned:
@@ -68,9 +68,9 @@ def index():
                 parts = url.split("/")
                 parts = [i for i in parts if i not in unwanted]
                 cleaned_links.append(parts)
-
             sitemap = create_sitemap(cleaned_links)
-            return render_template("results.html", sitemap=sitemap, url=url)
+            return render_template("results.html", nested_dict=sitemap)
+
         except Exception as e:
             logging.error(f"Error occurred: {e}")
             return render_template("error.html", error=str(e))

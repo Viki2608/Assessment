@@ -42,7 +42,7 @@ $ pip install -r requirements.txt
 
 ```
 app = Flask(__name__)
-app.config['DEBUG'] = True
+logging.basicConfig(level=logging.INFO)
 ```
 ### Configuring From Files
 
@@ -64,5 +64,21 @@ $ docker run -p 5000:5000 --name sitemap-generator python-sitemap-generator
  
 ```
 
+### Sample URL Tested
 
+```
+https://www.redhat.com/en
 
+https://lakshmikrishnanaturals.com/
+
+https://www.markdownguide.org/
+ 
+```
+### Backtested with Online sitemap Generators
+
+```
+https://octopus.do/sitemap/resource/generator
+
+https://www.mysitemapgenerator.com/
+
+```
