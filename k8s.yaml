@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-sitemap-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-sitemap-app
+  template:
+    metadata:
+      labels:
+        app: my-sitemap-app
+    spec:
+      containers:
+      - name: my-sitemap-app
+        image: python-sitemap-generator
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-sitemap-app-service
+spec:
+  ports:
+  - port: 5000
+    targetPort: 5000
+  selector:
+    app: my-sitemap-app
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-sitemap-app-ingress  
+  annotations:
+    # nginx.ingress.kubernetes.io/proxy-connect-timeout: "300s"
+    # nginx.ingress.kubernetes.io/proxy-send-timeout: "300s"
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: my-sitemap-app-service
+            port:
+              number: 5000

@@ -63,6 +63,26 @@ $ docker build -t python-sitemap-generator .
 $ docker run -p 5000:5000 --name sitemap-generator python-sitemap-generator 
  
 ```
+### Deployment Setup
+
+```
+$ curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.22.0/kind-windows-amd64
+
+$ curl.exe -LO "https://dl.k8s.io/release/v1.29.3/bin/windows/amd64/kubectl.exe"
+
+Copy both the executables to "c:/kubernetes" and set env path for the same 
+ 
+```
+**Note:** Since we are using locally build image and note from any public image repository we have to load the image to all nodes in the cluster.
+
+### Deployment
+
+```
+$ Kind load docker-image python-sitemap-generator
+$ kubectl apply --filename https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
+$ kubectl apply -f k8s.yaml
+ 
+```
 
 ### Sample URL Tested
 
