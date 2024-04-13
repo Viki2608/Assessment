@@ -16,6 +16,18 @@ spec:
       - name: my-sitemap-app
         image: python-sitemap-generator
         imagePullPolicy: Never
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 15
+          periodSeconds: 10
         ports:
         - containerPort: 5000
 ---
@@ -35,8 +47,9 @@ kind: Ingress
 metadata:
   name: my-sitemap-app-ingress  
   annotations:
-    # nginx.ingress.kubernetes.io/proxy-connect-timeout: "300s"
-    # nginx.ingress.kubernetes.io/proxy-send-timeout: "300s"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "300s"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300s"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300s"
 spec:
   rules:
   - http:
