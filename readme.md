@@ -32,6 +32,7 @@ $ pip install -r requirements.txt
 |──────requirements.txt
 |──────readme.md
 |──────Dockerfile
+|──────k8s.yaml
 
 ```
 
